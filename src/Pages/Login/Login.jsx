@@ -27,10 +27,10 @@ export default function Login() {
     register,
     formState: { errors },
   } = useForm({
-    defaultValues: {
-      email: "marwan2025@gmail.com",
-      password: "Marwan2020#",
-    },
+    // defaultValues: {
+    //   email: "marwan2025@gmail.com",
+    //   password: "Marwan2020#",
+    // },
     mode: "all",
     resolver: zodResolver(schema),
   });
