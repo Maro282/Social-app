@@ -1,0 +1,7 @@
+.active {
+  @apply border-b-3 border-pink;
+}
+
+.notActive {
+  @apply border-0;
+}

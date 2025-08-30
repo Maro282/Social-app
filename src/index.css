@@ -1,0 +1,16 @@
+@import "tailwindcss";
+@plugin './hero.js';
+@source '../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
+@custom-variant dark (&:is(.dark *));
+
+.active {
+  @apply text-sky-600;
+}
+
+.cotainer {
+  @apply lg:w-[60%] w-full p-5 text-center  mx-auto;
+}
+
+.listItem {
+  @apply flex p-3 items-center justify-between hover:bg-white/2 hover:shadow-2xl hover:translate-1 transform transition-all duration-300 w-full  md:w-1/2  dark:hover:bg-gray-800;
+}
