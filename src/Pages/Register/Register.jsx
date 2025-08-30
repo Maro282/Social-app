@@ -5,6 +5,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import * as zod from "zod";
+import { FaRegEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
 //creating my schema
 
@@ -68,6 +70,8 @@ export default function Register() {
   const [errMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
 
   const {
     handleSubmit,
@@ -150,44 +154,80 @@ export default function Register() {
             {...register("email")}
           />
 
-          <Input
-            className=" mt-2.5 border-b-2 border-b-sky-200"
-            label="Password"
-            type="password"
-            variant="underlined"
-            color="primary"
-            errorMessage={errors.password?.message}
-            isInvalid={Boolean(errors.password)}
-            name="password"
-            // {...register("password", {
-            //   required: "Password Is Required",
-            // })}
+          <div className="relative">
+            <Input
+              className=" mt-2.5 border-b-2 border-b-sky-200"
+              label="Password"
+              type={showPassword ? "text" : "password"}
+              variant="underlined"
+              color="primary"
+              errorMessage={errors.password?.message}
+              isInvalid={Boolean(errors.password)}
+              name="password"
+              // {...register("password", {
+              //   required: "Password Is Required",
+              // })}
 
-            //by zod
-            {...register("password")}
-          />
+              //by zod
+              {...register("password")}
+            />
 
-          <Input
-            className=" mt-2.5 border-b-2 border-b-sky-200"
-            label="Re-Password"
-            type="password"
-            variant="underlined"
-            color="primary"
-            name="rePassword"
-            errorMessage={errors.rePassword?.message}
-            isInvalid={Boolean(errors.rePassword)}
-            // {...register("rePassword", {
-            //   required: "Re-Password Is Required",
-            //   validate: (value) => {
-            //     if (watch("password") != value) {
-            //       return "Not Match";
-            //     }
-            //   },
-            // })}
+            {showPassword ? (
+              <FaEyeSlash
+                className=" absolute top-1/2 transform -translate-y-1/2 right-3 cursor-pointer z-50"
+                onClick={() => {
+                  setShowPassword(false);
+                }}
+              />
+            ) : (
+              <FaRegEye
+                className=" absolute top-1/2 transform -translate-y-1/2 right-3 cursor-pointer z-50"
+                onClick={() => {
+                  setShowPassword(true);
+                }}
+              />
+            )}
+          </div>
 
-            // by zod
-            {...register("rePassword")}
-          />
+          <div className="relative">
+            <Input
+              className=" mt-2.5 border-b-2 border-b-sky-200"
+              label="Re-Password"
+              type={showNewPassword ? "text" : "password"}
+              variant="underlined"
+              color="primary"
+              name="rePassword"
+              errorMessage={errors.rePassword?.message}
+              isInvalid={Boolean(errors.rePassword)}
+              // {...register("rePassword", {
+              //   required: "Re-Password Is Required",
+              //   validate: (value) => {
+              //     if (watch("password") != value) {
+              //       return "Not Match";
+              //     }
+              //   },
+              // })}
+
+              // by zod
+              {...register("rePassword")}
+            />
+
+            {showNewPassword ? (
+              <FaEyeSlash
+                className=" absolute top-1/2 transform -translate-y-1/2 right-3 cursor-pointer z-50"
+                onClick={() => {
+                  setShowNewPassword(false);
+                }}
+              />
+            ) : (
+              <FaRegEye
+                className=" absolute top-1/2 transform -translate-y-1/2 right-3 cursor-pointer z-50"
+                onClick={() => {
+                  setShowNewPassword(true);
+                }}
+              />
+            )}
+          </div>
 
           <Input
             className=" mt-2.5 border-b-2 border-b-sky-200"

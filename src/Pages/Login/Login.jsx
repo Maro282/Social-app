@@ -6,7 +6,8 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import * as zod from "zod";
 import { AuthContext } from "../../Context/AuthContext";
-
+import { FaRegEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 //creating my schema
 const schema = zod.object({
   email: zod.string().nonempty("Email is required").email("Email is not valid"),
@@ -21,6 +22,7 @@ export default function Login() {
   const [errMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     handleSubmit,
@@ -84,17 +86,35 @@ export default function Login() {
             {...register("email")}
           />
 
-          <Input
-            className=" mt-2.5 border-b-2 border-b-sky-200"
-            label="Password"
-            type="password"
-            variant="underlined"
-            color="primary"
-            errorMessage={errors.password?.message}
-            isInvalid={Boolean(errors.password)}
-            name="password"
-            {...register("password")}
-          />
+          <div className="relative">
+            <Input
+              className=" mt-2.5 border-b-2 border-b-sky-200"
+              label="Password"
+              type={showPassword ? "text" : "password"}
+              variant="underlined"
+              color="primary"
+              errorMessage={errors.password?.message}
+              isInvalid={Boolean(errors.password)}
+              name="password"
+              {...register("password")}
+            />
+
+            {showPassword ? (
+              <FaEyeSlash
+                className=" absolute top-1/2 transform -translate-y-1/2 right-3 cursor-pointer z-50"
+                onClick={() => {
+                  setShowPassword(false);
+                }}
+              />
+            ) : (
+              <FaRegEye
+                className=" absolute top-1/2 transform -translate-y-1/2 right-3 cursor-pointer z-50"
+                onClick={() => {
+                  setShowPassword(true);
+                }}
+              />
+            )}
+          </div>
 
           <Button
             color="primary"

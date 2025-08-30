@@ -7,6 +7,8 @@ import * as zod from "zod";
 import { AuthContext } from "../../Context/AuthContext";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { FaRegEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
 export default function UpdatePassword({ setUpdatePassword }) {
   const { userToken } = useContext(AuthContext);
@@ -14,6 +16,8 @@ export default function UpdatePassword({ setUpdatePassword }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
 
   const schema = zod.object({
     password: zod.string().nonempty("Password is required"),
@@ -56,8 +60,8 @@ export default function UpdatePassword({ setUpdatePassword }) {
           clear();
         }
       })
-      .catch((err) => {
-        setErrorMessage(err.message);
+      .catch(() => {
+        setErrorMessage(" make sure of old password");
         setIsLoading(false);
       })
       .finally(() => {
@@ -81,33 +85,69 @@ export default function UpdatePassword({ setUpdatePassword }) {
                 Password Update
               </legend>
 
-              <Input
-                className="w-full mt-3"
-                label="Password"
-                type="password"
-                variant="bordered"
-                name="password"
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-                isInvalid={Boolean(errors.password)}
-                errorMessage={errors.password?.message}
-                {...register("password")}
-              />
+              <div className="relative">
+                <Input
+                  className="w-full mt-3"
+                  label="Password"
+                  type={showPassword ? "text" : "password"}
+                  variant="bordered"
+                  name="password"
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                  isInvalid={Boolean(errors.password)}
+                  errorMessage={errors.password?.message}
+                  {...register("password")}
+                />
 
-              <Input
-                className="w-full mt-3"
-                label="New password"
-                type="password"
-                variant="bordered"
-                name="newPassword"
-                onChange={(e) => {
-                  setNewPassword(e.target.value);
-                }}
-                isInvalid={Boolean(errors.newPassword)}
-                errorMessage={errors.newPassword?.message}
-                {...register("newPassword")}
-              />
+                {showPassword ? (
+                  <FaEyeSlash
+                    className=" absolute top-1/2 transform -translate-y-1/2 right-3 cursor-pointer z-50"
+                    onClick={() => {
+                      setShowPassword(false);
+                    }}
+                  />
+                ) : (
+                  <FaRegEye
+                    className=" absolute top-1/2 transform -translate-y-1/2 right-3 cursor-pointer z-50"
+                    onClick={() => {
+                      setShowPassword(true);
+                    }}
+                  />
+                )}
+              </div>
+
+              <div className="relative">
+                <Input
+                  className="w-full mt-3"
+                  label="New password"
+                  type={showNewPassword ? "text" : "password"}
+                  variant="bordered"
+                  name="newPassword"
+                  onChange={(e) => {
+                    setNewPassword(e.target.value);
+                  }}
+                  isInvalid={Boolean(errors.newPassword)}
+                  errorMessage={errors.newPassword?.message}
+                  {...register("newPassword")}
+                />
+
+                {showNewPassword ? (
+                  <FaEyeSlash
+                    className=" absolute top-1/2 transform -translate-y-1/2 right-3 cursor-pointer z-50"
+                    onClick={() => {
+                      setShowNewPassword(false);
+                    }}
+                  />
+                ) : (
+                  <FaRegEye
+                    className=" absolute top-1/2 transform -translate-y-1/2 right-3 cursor-pointer z-50"
+                    onClick={() => {
+                      setShowNewPassword(true);
+                    }}
+                  />
+                )}
+              </div>
 
               {errorMessage && (
                 <p className="bg-red-500 font-semibold p-3  my-3 text-white w-fit mx-auto rounded-xl  ">
