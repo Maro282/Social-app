@@ -22,8 +22,8 @@ const schema = zod
       .string()
       .nonempty("password is required")
       .regex(
-        /^[a-zA-Z0-9\W]{5,16}$/,
-        "Password must contain anything and minimum length should be 5"
+        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?\W).{8,}$/,
+        "password must be at least 8 and contain one lowercase , uppercase , special character and a digit  "
       ),
     rePassword: zod.string().nonempty("Repassword is required"),
     dateOfBirth: zod.coerce
@@ -73,7 +73,6 @@ export default function Register() {
     handleSubmit,
     register,
     formState: { errors },
-    watch,
   } = useForm({
     mode: "all",
     resolver: zodResolver(schema),
