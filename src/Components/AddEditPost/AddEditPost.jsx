@@ -100,7 +100,7 @@ export default function AddEditPost({ getAllPosts }) {
               <MdOutlineFileUpload className="text-rose-500 size-6" />
               <label className=" flex items-center  cursor-pointer ">
                 <span className=" text-base leading-normal text-gray-500">
-                  Select a photo
+                  photo
                 </span>
                 <input
                   accept="image/*"
@@ -113,7 +113,7 @@ export default function AddEditPost({ getAllPosts }) {
               </label>
             </div>
 
-            <div className="btns ">
+            <div className="btns flex ">
               <Button
                 size="sm"
                 className="me-2 "
